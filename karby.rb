@@ -1,6 +1,8 @@
+require 'fileutils'
 require 'sinatra'
 
 LOGS_DIR = (ENV.include?('LOGS_DIR') ? ENV['LOGS_DIR'] : './logs')
+FileUtils.mkdir_p LOGS_DIR unless File.exists?(LOGS_DIR)
 
 set :bind, (ENV.include?('BIND_ADDRESS') ? ENV['BIND_ADDRESS'] : '0.0.0.0')
 set :port, (ENV.include?('BIND_PORT') ? ENV['BIND_PORT'] : '4567')
