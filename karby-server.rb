@@ -1,8 +1,7 @@
-require 'fileutils'
+require 'securerandom'
 require 'sinatra'
 
-LOGS_DIR = (ENV.include?('LOGS_DIR') ? ENV['LOGS_DIR'] : './logs')
-FileUtils.mkdir_p LOGS_DIR unless File.exists?(LOGS_DIR)
+require_relative 'karby-util.rb'
 
 set :bind, (ENV.include?('BIND_ADDRESS') ? ENV['BIND_ADDRESS'] : '0.0.0.0')
 set :port, (ENV.include?('BIND_PORT') ? ENV['BIND_PORT'] : '4567')
@@ -14,7 +13,7 @@ end
 post '/' do
   now = Time.now
 
-  File.open("#{LOGS_DIR}/#{request.ip}_#{now.strftime("%Y-%m-%d")}.log", 'a') do |f|
+  File.open("#{PRE_AGGREGATION_DIR}/#{now.strftime("%Y-%m-%d")}_#{request.ip}_#{SecureRandom.hex}.log", 'a') do |f|
     f.puts(request.body.read)
   end
   

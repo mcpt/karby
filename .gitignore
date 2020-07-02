@@ -1,4 +1,5 @@
 # Temporary files
 *~
-# Default logs location
+# Default logs locations
 logs/*
+temp/*

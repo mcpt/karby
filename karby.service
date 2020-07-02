@@ -10,10 +10,11 @@ User=karby
 Group=karby
 
 Environment="APP_ENV=production"
-Environment="LOGS_DIR=/home/karby/logs"
+Environment="PRE_AGGREGATION_DIR=/home/karby/temp"
+Environment="POST_AGGREGATION_DIR=/home/karby/logs"
 Environment="BIND_ADDRESS=0.0.0.0"
 Environment="BIND_PORT=80"
-ExecStart=/bin/ruby /home/karby/karby.rb
+ExecStart=/bin/ruby /home/karby/karby-server.rb
 
 Restart=always
 
