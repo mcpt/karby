@@ -6,6 +6,8 @@ require_relative 'karby-util.rb'
 set :bind, (ENV.include?('BIND_ADDRESS') ? ENV['BIND_ADDRESS'] : '0.0.0.0')
 set :port, (ENV.include?('BIND_PORT') ? ENV['BIND_PORT'] : '4567')
 
+configure { set :server, :puma }
+
 not_found do
   '<h1>404</h1>'
 end
