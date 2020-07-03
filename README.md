@@ -25,7 +25,7 @@ Then change the `BIND_ADDRESS` in your service file to your local zerotier ip.
 ### Karby Aggregator
 Add the following line to the `karby` user's crontab to have each days logs aggregated:
 ```
-* 6 * * * env PRE_AGGREGATION_DIR=/home/karby/temp POST_AGGREGATION_DIR=/home/karby/logs DESTROY_LOG_PARTS=FALSE ruby /home/karby/karby-aggregator.rb "$(date -d "yesterday 6:00" '+%Y-%m-%d')" >/dev/null 2>&1
+0 6 * * * env PRE_AGGREGATION_DIR=/home/karby/temp POST_AGGREGATION_DIR=/home/karby/logs DESTROY_LOG_PARTS=FALSE ruby /home/karby/karby-aggregator.rb "$(date -d "yesterday 6:00" '+%Y-%m-%d')" >/dev/null 2>&1
 ```
 
 If you want to destroy the part logs after the aggregation change `DESTROY_LOG_PARTS=TRUE` in the line above.
