@@ -1,5 +1,7 @@
 # Karby
-It sucks!
+> It sucks!
+
+Karby is a basic log aggregator that works with [Vector](https://github.com/timberio/vector). Every batch is saved as a different file, and an aggregator script run via `cron` aggregates logs everyday.
 
 ## Installation
 First, clone this git repository into the home directory of a new user (`karby`).
@@ -34,3 +36,27 @@ If you want to destroy the part logs after the aggregation change `DESTROY_LOG_P
 
 ## RVM
 If using RVM to manage ruby versions, you will likely need to generate a wrapper script for the gems to be viewed properly (see [this page](https://rvm.io/integration/init-d)).
+
+## Sample Vector Sink
+```
+[sinks.karby]
+  type = "http"
+  inputs = ["in"]
+  compression = "none"
+  healthcheck = true
+  uri = "http://127.0.0.1:4567/"
+
+  batch.max_size = 1049000
+  batch.timeout_secs = 0
+
+  buffer.type = "memory"
+  buffer.max_events = 500
+  buffer.when_full = "block"
+
+  encoding.codec = "text"
+
+  request.in_flight_limit = 10
+  request.rate_limit_duration_secs = 1
+  request.rate_limit_num = 1000
+  request.timeout_secs = 30
+```
