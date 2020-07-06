@@ -41,7 +41,7 @@ If using RVM to manage ruby versions, you will likely need to generate a wrapper
 ```
 [sinks.karby]
   type = "http"
-  inputs = ["in"]
+  inputs = []
   compression = "none"
   healthcheck = true
   uri = "http://127.0.0.1:4567/"
