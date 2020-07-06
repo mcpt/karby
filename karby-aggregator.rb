@@ -4,19 +4,6 @@ require_relative 'karby-util.rb'
 
 raise ArgumentError, 'No date specified.' if ARGV[0] == nil
 
-class DatedFile
-  attr_reader :path, :creation_date
-
-  def initialize path, creation_date
-    @path = path
-    @creation_date = creation_date
-  end
-
-  def to_s
-    "#{path} was created #{@creation_date}"
-  end
-end
-
 now = Time.now
 
 FILES = Dir["#{PRE_AGGREGATION_DIR}/#{ARGV[0]}_*.log"]
