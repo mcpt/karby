@@ -1,3 +1,5 @@
+require 'date'
+require 'json'
 require 'securerandom'
 require 'sinatra'
 
@@ -56,7 +58,9 @@ post '/' do
   now = Time.now
 
   File.open("#{PRE_AGGREGATION_DIR}/#{now.strftime("%Y-%m-%d")}_#{request.ip}_#{SecureRandom.hex}.log", 'a') do |f|
-    f.puts(request.body.read)
+    JSON.load(request.body.read).each do |message|
+      f.puts "[#{DateTime.parse(message["timestamp"]).new_offset(Time.now.strftime("%:z")).strftime("%Y-%m-%d %H:%M:%S.%N")}] #{message["message"]}"
+    end
   end
   
   nil
