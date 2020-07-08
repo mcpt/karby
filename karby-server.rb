@@ -1,4 +1,5 @@
 require 'date'
+require 'erb'
 require 'json'
 require 'securerandom'
 require 'sinatra'
@@ -24,22 +25,7 @@ get '/' do
   parts = Dir["#{PRE_AGGREGATION_DIR}/*.log"].map{|path| DatedFile.new(path.split("/")[-1], File::Stat.new(path).ctime)}.sort_by(&:creation_date).reverse
 
   headers "Content-Type" => "text/html"
-  body %{<style>
-* {font-family: sans-serif;}
-div.expandable {display: none;}
-input:checked + label + div.expandable {display: block;}
-table, th, td {border: 1px solid black; border-collapse: collapse;}
-th, td {padding: 5px;}
-</style>
-<input type=\"checkbox\" id=\"aggregated\"><label for=\"aggregated\">Show Aggregated Logs</label>
-<div class=\"expandable\">
-  #{tablify(aggregated)}
-</div>
-<hr>
-<input type=\"checkbox\" id=\"parts\"><label for=\"parts\">Show Log Parts</label>
-<div class=\"expandable\">
-  #{tablify(parts)}
-</div>}.delete("\n").squeeze(" ")
+  erb :index, :locals => {:aggregated => tablify(aggregated), :parts => tablify(parts)}
 end
 
 get '/raw/*.log' do |file|

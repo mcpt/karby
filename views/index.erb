@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Karby</title>
+  <style>
+    * {
+      font-family: sans-serif;
+    }
+    div.expandable {
+      display: none;
+    }
+    input:checked + label + div.expandable {
+      display: block;
+    }
+    table, th, td {
+      border: 1px solid black; border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+    }
+  </style>
+</head> 
+<body>
+  <input type="checkbox" id="aggregated"><label for="aggregated">Show Aggregated Logs</label>
+  <div class="expandable">
+    <%= aggregated %>
+  </div>
+  <hr>
+  <input type="checkbox" id="parts"><label for="parts">Show Log Parts</label>
+  <div class="expandable">
+    <%= parts %>
+  </div>
+</body>
+</html>
