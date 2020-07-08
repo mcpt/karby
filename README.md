@@ -53,7 +53,8 @@ If using RVM to manage ruby versions, you will likely need to generate a wrapper
   buffer.max_events = 500
   buffer.when_full = "block"
 
-  encoding.codec = "text"
+  encoding.codec = "json"
+  encoding.only_fields = ["timestamp","message"]
 
   request.in_flight_limit = 10
   request.rate_limit_duration_secs = 1
